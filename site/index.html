@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Outlier board · Ecommerce email creators</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1F4; --paper:#FFFFFF; --ink:#16213A; --slate:#5B667A; --rule:#D6DCE4; --soft:#F5F7F9;
+  --hot:#C8175D; --warm:#D96A12; --flat:#8C96A8; --good:#1F7A4D; --bad:#B3261E;
+  --display:"Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --body:"Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light dark;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121826; --paper:#1A2233; --ink:#E7EBF2; --slate:#9AA5B8; --rule:#2B3549; --soft:#202A3D;
+    --hot:#FF4F8B; --warm:#F29A45; --flat:#6E7A90; --good:#4CC38A; --bad:#FF7A70;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121826; --paper:#1A2233; --ink:#E7EBF2; --slate:#9AA5B8; --rule:#2B3549; --soft:#202A3D;
+  --hot:#FF4F8B; --warm:#F29A45; --flat:#6E7A90; --good:#4CC38A; --bad:#FF7A70;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--hot);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+
+/* header */
+header.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:22px}
+h1{font-family:var(--display);font-weight:800;font-stretch:80%;font-size:clamp(34px,6vw,56px);line-height:.95;letter-spacing:-.02em;margin:0}
+.sub{color:var(--slate);margin:6px 0 0;font-size:14px}
+.status{font-size:13px;color:var(--slate);text-align:right}
+.status .warn{color:var(--bad);font-weight:600}
+.demo-flag{display:inline-block;background:var(--warm);color:#fff;font-weight:700;font-size:12px;padding:2px 8px;border-radius:99px;margin-left:6px}
+
+/* brief */
+.brief{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:22px 24px;margin-bottom:26px}
+.brief h2{font-family:var(--display);font-weight:700;font-size:15px;margin:0 0 4px;color:var(--slate)}
+.brief .headline{font-family:var(--display);font-weight:650;font-size:clamp(20px,2.6vw,26px);line-height:1.2;margin:0 0 18px;max-width:62ch;letter-spacing:-.01em}
+.brief-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px}
+.brief h3{font-size:13px;font-weight:700;margin:0 0 8px;color:var(--slate)}
+.brief ul{list-style:none;margin:0;padding:0}
+.brief li{padding:8px 0;border-top:1px solid var(--rule);font-size:14px;max-width:70ch}
+.brief li b{display:block;font-weight:650}
+.brief li span{color:var(--slate)}
+.brief .cool b{color:var(--slate)}
+.brief-empty{color:var(--slate);font-size:14px;margin:0}
+@media (max-width:760px){.brief-cols{grid-template-columns:1fr}}
+
+/* tabs */
+.tabs{display:flex;gap:4px;border-bottom:1px solid var(--rule);margin-bottom:16px;overflow-x:auto}
+.tab{appearance:none;background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px 9px;font:600 15px var(--body);color:var(--slate);cursor:pointer;white-space:nowrap}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--ink)}
+.tab .count{font-weight:500;color:var(--flat);margin-left:4px}
+
+/* filters */
+.filters{display:flex;flex-wrap:wrap;gap:8px 10px;align-items:center;margin-bottom:14px}
+.filters label{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--slate)}
+select{font:500 14px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:6px 28px 6px 10px;appearance:none;
+  background-image:linear-gradient(45deg,transparent 50%,var(--slate) 50%),linear-gradient(135deg,var(--slate) 50%,transparent 50%);
+  background-position:calc(100% - 14px) 55%,calc(100% - 9px) 55%;background-size:5px 5px;background-repeat:no-repeat}
+.check{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--slate);cursor:pointer}
+.result-note{font-size:13px;color:var(--slate);margin:0 0 10px}
+
+/* outlier inbox */
+.inbox{background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden}
+.row{display:grid;grid-template-columns:96px 56px minmax(0,1fr) auto;gap:16px;align-items:start;padding:16px 20px;border-top:1px solid var(--rule)}
+.row:first-child{border-top:0}
+.mult{font-family:var(--display);font-weight:800;font-stretch:78%;font-size:40px;line-height:.9;letter-spacing:-.03em;font-variant-numeric:tabular-nums;text-align:right}
+.mult small{font-size:.5em;font-weight:700;margin-left:1px}
+.mult.hot{color:var(--hot)} .mult.warm{color:var(--warm)} .mult.flat{color:var(--flat)} .mult.na{color:var(--flat);font-size:18px;padding-top:10px}
+.mult-cap{font-size:11px;color:var(--slate);text-align:right;margin-top:6px;line-height:1.25}
+.thumb{width:56px;height:70px;border-radius:8px;object-fit:cover;background:var(--soft);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:var(--slate);border:1px solid var(--rule)}
+.meta{font-size:13px;color:var(--slate);display:flex;flex-wrap:wrap;gap:4px 12px}
+.meta b{color:var(--ink);font-weight:650}
+.hook{font-weight:650;font-size:16px;line-height:1.35;margin:3px 0 6px;max-width:68ch}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12px;font-weight:600;background:var(--soft);border:1px solid var(--rule);border-radius:99px;padding:1px 9px;color:var(--slate)}
+.chip.fresh{background:transparent;border-style:dashed}
+.chip.cta{color:var(--warm);border-color:currentColor;background:transparent}
+details.cap{margin-top:8px;font-size:13px;color:var(--slate)}
+details.cap summary{cursor:pointer;width:max-content}
+details.cap p{white-space:pre-wrap;margin:6px 0 0;max-width:72ch}
+.nums{display:grid;grid-template-columns:auto auto;gap:2px 12px;font-size:13px;text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nums dt{color:var(--slate)} .nums dd{margin:0;font-weight:650}
+.open{grid-column:1/-1;margin-top:6px;font-size:13px;font-weight:600}
+@media (max-width:760px){
+  .row{grid-template-columns:64px minmax(0,1fr);gap:10px 14px;padding:14px 16px}
+  .mult{font-size:32px}
+  .thumb{display:none}
+  .nums{grid-column:2;text-align:left;grid-template-columns:repeat(4,auto);justify-content:start}
+}
+
+
+/* outlier grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(228px,1fr));gap:18px}
+.card{display:flex;flex-direction:column;background:var(--paper);border:1px solid var(--rule);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;transition:transform .15s ease,border-color .15s ease}
+.card:hover{transform:translateY(-2px);border-color:var(--slate)}
+@media (prefers-reduced-motion:reduce){.card,.card:hover{transition:none;transform:none}}
+.media{position:relative;aspect-ratio:4/5;background:var(--soft);overflow:hidden}
+.media img{width:100%;height:100%;object-fit:cover;display:block}
+.ph{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px 16px 16px;font-family:var(--display);font-weight:700;font-size:21px;line-height:1.12;letter-spacing:-.01em;color:#fff}
+.ph.t0{background:#2D3E6B}.ph.t1{background:#6B2D4E}.ph.t2{background:#2F5E55}.ph.t3{background:#5A4A2A}.ph.t4{background:#43346E}.ph.t5{background:#3A4A5C}
+.badge{position:absolute;top:10px;left:10px;font-family:var(--display);font-weight:800;font-stretch:78%;font-size:30px;line-height:1;padding:6px 9px 5px;border-radius:9px;color:#fff;background:var(--ink);font-variant-numeric:tabular-nums}
+.badge small{font-size:.55em;margin-left:1px}
+.badge.hot{background:var(--hot)}.badge.warm{background:var(--warm)}.badge.flat,.badge.na{background:var(--flat)}
+.badge.na{font-size:15px;padding:7px 9px}
+.fmt{position:absolute;top:12px;right:10px;font-size:12px;font-weight:700;background:rgba(0,0,0,.55);color:#fff;border-radius:99px;padding:2px 9px}
+.growing{position:absolute;bottom:10px;right:10px;font-size:11px;font-weight:700;background:rgba(0,0,0,.55);color:#fff;border-radius:99px;padding:2px 8px}
+.card .body{padding:13px 14px 14px;display:flex;flex-direction:column;gap:6px;flex:1}
+.strategy{font-family:var(--display);font-weight:750;font-size:17px;line-height:1.15;letter-spacing:-.01em}
+.card .chips{gap:5px}
+.card .hook{font-weight:500;font-size:14px;line-height:1.4;margin:0;color:var(--ink)}
+.card .who{font-size:13px;color:var(--slate);margin-top:auto;padding-top:4px}
+.card .who b{color:var(--ink);font-weight:650}
+.card .stats{font-size:12.5px;color:var(--slate);font-variant-numeric:tabular-nums;border-top:1px solid var(--rule);padding-top:8px;display:flex;flex-wrap:wrap;gap:2px 10px}
+.card .stats b{color:var(--ink);font-weight:650}
+.more{display:block;margin:22px auto 0;font:600 14px var(--body);color:var(--ink);background:var(--paper);border:1px solid var(--rule);border-radius:99px;padding:9px 20px;cursor:pointer}
+
+/* patterns */
+.pattern-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:860px){.pattern-grid{grid-template-columns:1fr}}
+.panel{background:var(--paper);border:1px solid var(--rule);border-radius:14px;padding:18px 20px}
+.panel h3{font-family:var(--display);font-weight:700;font-size:19px;margin:0 0 2px}
+.panel .hint{font-size:13px;color:var(--slate);margin:0 0 12px}
+.bar-row{display:grid;grid-template-columns:minmax(110px,160px) minmax(0,1fr) 58px 66px;gap:10px;align-items:center;padding:5px 0;font-size:14px}
+.bar-track{height:12px;background:var(--soft);border-radius:99px;position:relative;overflow:hidden}
+.bar-fill{position:absolute;inset:0 auto 0 0;border-radius:99px}
+.bar-one{position:absolute;top:-3px;bottom:-3px;width:1px;background:var(--slate);opacity:.6}
+.bar-val{font-family:var(--display);font-weight:750;font-variant-numeric:tabular-nums;text-align:right}
+.bar-meta{font-size:12px;color:var(--slate);text-align:right;white-space:nowrap}
+.up{color:var(--good)} .down{color:var(--bad)}
+
+/* tables */
+.table-wrap{overflow-x:auto;background:var(--paper);border:1px solid var(--rule);border-radius:14px}
+table{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+th,td{padding:11px 14px;text-align:right;border-top:1px solid var(--rule);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+thead th{border-top:0;font-size:13px;color:var(--slate);font-weight:600;cursor:pointer;user-select:none}
+thead th[aria-sort] {color:var(--ink)}
+thead th[aria-sort="descending"]::after{content:" ↓"} thead th[aria-sort="ascending"]::after{content:" ↑"}
+td .who{font-weight:650} td .grp{font-size:12px;color:var(--slate)}
+
+.empty{background:var(--paper);border:1px dashed var(--rule);border-radius:14px;padding:32px;text-align:center;color:var(--slate)}
+.issues{margin-top:28px;font-size:13px;color:var(--slate)}
+.issues summary{cursor:pointer;font-weight:600;color:var(--bad)}
+.issues li{margin:4px 0}
+footer{margin-top:36px;font-size:12px;color:var(--slate)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <div>
+      <h1>Outlier board</h1>
+      <p class="sub" id="sub">What's beating its creator's normal in ecommerce email marketing</p>
+    </div>
+    <div class="status" id="status">Loading…</div>
+  </header>
+
+  <section class="brief" id="brief" aria-label="Weekly brief"></section>
+
+  <nav class="tabs" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="outliers">Outliers</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="patterns">Patterns</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="creators">Creators</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="discover">Discover</button>
+  </nav>
+
+  <div class="filters" id="filters">
+    <label>Period <select id="f-days"><option value="7">Last 7 days</option><option value="30" selected>Last 30 days</option><option value="90">Last 90 days</option></select></label>
+    <label>Type <select id="f-format"><option value="">All types</option><option value="reel">Reels</option><option value="carousel">Carousels</option><option value="image">Images</option></select></label>
+    <label>Creators <select id="f-group"><option value="">Everyone</option><option value="core">Core email creators</option><option value="adjacent">Adjacent DTC creators</option></select></label>
+    <label class="only-outliers">Creator <select id="f-creator"><option value="">Any</option></select></label>
+    <label class="only-outliers">Topic <select id="f-topic"><option value="">Any topic</option></select></label>
+    <label class="only-outliers">Hook <select id="f-hook"><option value="">Any hook</option></select></label>
+    <label class="only-outliers">Sort <select id="f-sort"><option value="outlier">Outlier score</option><option value="views">Views</option><option value="engagement">Engagement rate</option><option value="comments">Comments</option><option value="newest">Newest</option></select></label>
+    <label class="check only-outliers"><input type="checkbox" id="f-fresh" checked> Include posts still growing</label>
+  </div>
+
+  <main>
+    <section id="tab-outliers"></section>
+    <section id="tab-patterns" hidden></section>
+    <section id="tab-creators" hidden></section>
+    <section id="tab-discover" hidden></section>
+  </main>
+
+  <div id="issues"></div>
+  <footer id="foot"></footer>
+</div>
+
+<script>
+const LABELS = {
+  how_to:"How-to", listicle:"List", contrarian:"Contrarian take", results_case_study:"Results / case study",
+  teardown_audit:"Teardown / audit", mistake_warning:"Mistake warning", personal_story:"Personal story",
+  freebie_template:"Freebie / template", news_trend:"News / trend", question_poll:"Question / poll", promo:"Promo", other:"Other",
+  flows_automation:"Flows", campaigns:"Campaigns", copywriting:"Copywriting", subject_lines:"Subject lines",
+  email_design:"Email design", deliverability:"Deliverability", sms:"SMS", list_growth:"List growth",
+  segmentation:"Segmentation", seasonal_bfcm:"Seasonal / BFCM", metrics_strategy:"Metrics & strategy",
+  agency_business:"Agency business", ai_tools:"AI tools", ecommerce_general:"Ecommerce general",
+  reel:"Reel", carousel:"Carousel", image:"Image", yes:"Has comment-keyword CTA", no:"No comment CTA"
+};
+const lab = k => LABELS[k] || (k||"").replace(/_/g," ").replace(/^./,c=>c.toUpperCase());
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmtN = n => n==null ? "—" : n>=1e6 ? (n/1e6).toFixed(n>=1e7?0:1)+"M" : n>=1e4 ? Math.round(n/1e3)+"K" : n>=1e3 ? (n/1e3).toFixed(1)+"K" : String(Math.round(n));
+const fmtPct = x => x==null ? "—" : (x*100).toFixed(x<0.01?2:1)+"%";
+const ago = iso => { const h=(Date.now()-new Date(iso))/36e5; return h<1?"just now":h<24?Math.round(h)+"h ago":h<24*14?Math.round(h/24)+"d ago":Math.round(h/168)+"w ago"; };
+const tsDate = t => new Date(t.replace(/\+0000$/,"Z"));
+const heat = x => x==null ? "na" : x>=3 ? "hot" : x>=2 ? "warm" : x>=1 ? "" : "flat";
+
+let D, tab = "outliers";
+const creatorMap = {};
+
+async function init(){
+  try{
+    const r = await fetch("data.json",{cache:"no-store"});
+    if(!r.ok) throw new Error(r.status);
+    D = await r.json();
+  }catch(e){
+    $("#status").textContent = "";
+    $("#tab-outliers").innerHTML = `<div class="empty">No data yet. Run <code>python -m tracker.main</code> (or <code>--demo</code> to preview), then reload. If you opened this file directly, serve the folder instead: <code>python -m http.server -d site</code>.</div>`;
+    return;
+  }
+  D.creators.forEach(c => creatorMap[c.handle] = c);
+  D.posts.forEach(p => p._t = tsDate(p.timestamp));
+  fillSelects();
+  renderStatus(); renderBrief(); renderIssues();
+  document.querySelectorAll(".tab").forEach(b => b.addEventListener("click", () => setTab(b.dataset.tab)));
+  document.querySelectorAll("#filters select, #filters input").forEach(el => el.addEventListener("change", render));
+  const hash = location.hash.slice(1); if(["outliers","patterns","creators","discover"].includes(hash)) setTab(hash); else render();
+}
+
+function fillSelects(){
+  const add = (sel, vals) => vals.forEach(([v,t]) => { const o=document.createElement("option"); o.value=v; o.textContent=t; sel.appendChild(o); });
+  add($("#f-creator"), [...D.creators].sort((a,b)=>a.handle.localeCompare(b.handle)).map(c=>[c.handle,"@"+c.handle]));
+  const topics = new Set(), hooks = new Set();
+  D.posts.forEach(p => { if(p.tags){ topics.add(p.tags.topic); hooks.add(p.tags.hook_type);} });
+  add($("#f-topic"), [...topics].sort().map(t=>[t,lab(t)]));
+  add($("#f-hook"), [...hooks].sort().map(t=>[t,lab(t)]));
+  if(!topics.size){ $("#f-topic").closest("label").hidden = true; $("#f-hook").closest("label").hidden = true; }
+}
+
+function setTab(t){
+  tab = t; history.replaceState(null,"","#"+t);
+  document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===t));
+  ["outliers","patterns","creators","discover"].forEach(k => $("#tab-"+k).hidden = k!==t);
+  document.querySelectorAll(".only-outliers").forEach(el => el.hidden = t!=="outliers");
+  $("#filters").hidden = t==="discover";
+  render();
+}
+
+function filtered({ignoreDays=false, days}={}){
+  const d = days ?? +$("#f-days").value, f=$("#f-format").value, g=$("#f-group").value;
+  const cut = Date.now() - d*864e5;
+  return D.posts.filter(p => (ignoreDays || p._t >= cut) && (!f || p.format===f) && (!g || (creatorMap[p.handle]||{}).group===g));
+}
+
+function render(){
+  ({outliers:renderOutliers, patterns:renderPatterns, creators:renderCreators, discover:renderDiscover})[tab]();
+}
+
+/* ---------------- outliers */
+let shownCount = 48;
+document.addEventListener("change", e => { if(e.target.closest("#filters")) shownCount = 48; });
+function renderOutliers(){
+  const c=$("#f-creator").value, t=$("#f-topic").value, h=$("#f-hook").value, sort=$("#f-sort").value, fresh=$("#f-fresh").checked;
+  let ps = filtered().filter(p => (!c||p.handle===c) && (!t||p.tags?.topic===t) && (!h||p.tags?.hook_type===h) && (fresh||p.mature));
+  const key = {outlier:p=>p.outlier??-1, views:p=>p.views??-1, engagement:p=>p.engagement_rate??-1, comments:p=>p.comments??-1, newest:p=>+p._t}[sort];
+  ps.sort((a,b)=>key(b)-key(a));
+  const hitT = D.settings.hit_threshold, hits = ps.filter(p=>p.outlier>=hitT).length;
+  if(!ps.length){ $("#tab-outliers").innerHTML = `<div class="empty">No posts match these filters. Widen the period or clear a filter.</div>`; return; }
+  $("#tab-outliers").innerHTML =
+    `<p class="result-note">${ps.length} posts · ${hits} at ${hitT}× or more their creator's normal. Click any post to open it on Instagram.</p>
+     <div class="grid">${ps.slice(0,shownCount).map(cardHTML).join("")}</div>
+     ${ps.length>shownCount?`<button class="more" id="more">Show ${Math.min(48,ps.length-shownCount)} more</button>`:""}`;
+  const m=$("#more"); if(m) m.addEventListener("click",()=>{ shownCount+=48; renderOutliers(); });
+}
+
+function tint(k){ let h=0; for(const ch of (k||"x")) h=(h*31+ch.charCodeAt(0))>>>0; return "t"+(h%6); }
+
+function cardHTML(p){
+  const cr = creatorMap[p.handle] || {};
+  const m = p.outlier;
+  const badge = m==null ? `<span class="badge na">New</span>`
+    : `<span class="badge ${heat(m)}" title="${p.metric==="views"?"Views":p.metric==="interactions"?"Likes + comments":"Comments"} vs. this creator's usual">${m>=10?Math.round(m):m.toFixed(1)}<small>×</small></span>`;
+  const hook = p.tags?.hook || (p.caption||"").split("\n")[0].slice(0,140) || "(no caption)";
+  const strategy = p.tags ? lab(p.tags.hook_type) : lab(p.format);
+  const ph = `<div class="ph ${tint(p.tags?.hook_type||p.format)}">${esc(hook)}</div>`;
+  const media = p.thumb
+    ? `<img src="${esc(p.thumb)}" alt="" loading="lazy" onerror="this.replaceWith(Object.assign(document.createElement('div'),{className:'ph ${tint(p.tags?.hook_type||p.format)}',textContent:${esc(JSON.stringify(hook))}}))">`
+    : ph;
+  const chips = [];
+  if(p.tags) chips.push(`<span class="chip">${esc(lab(p.tags.topic))}</span>`);
+  if(p.comment_cta) chips.push(`<span class="chip cta" title="Caption asks people to comment a keyword, which inflates comments">Comment-to-get CTA</span>`);
+  const stats = [];
+  if(p.views!=null) stats.push(`<span><b>${fmtN(p.views)}</b> views</span>`);
+  stats.push(`<span><b>${p.likes==null?"hidden":fmtN(p.likes)}</b> likes</span>`);
+  stats.push(`<span><b>${fmtN(p.comments)}</b> comments</span>`);
+  return `<a class="card" href="${esc(p.permalink)}" target="_blank" rel="noopener" aria-label="Open @${esc(p.handle)}'s post on Instagram: ${esc(hook)}">
+    <div class="media">${media}${badge}<span class="fmt">${lab(p.format)}</span>${!p.mature?`<span class="growing">Still growing</span>`:""}</div>
+    <div class="body">
+      <div class="strategy">${esc(strategy)}</div>
+      ${chips.length?`<div class="chips">${chips.join("")}</div>`:""}
+      ${p.thumb?`<p class="hook">${esc(hook)}</p>`:""}
+      <div class="who"><b>@${esc(p.handle)}</b> · ${fmtN(cr.followers)} followers · ${ago(p._t)}</div>
+      <div class="stats">${stats.join("")}</div>
+    </div>
+  </a>`;
+}
+
+/* ---------------- patterns */
+function median(a){ if(!a.length) return null; const s=[...a].sort((x,y)=>x-y), m=s.length>>1; return s.length%2?s[m]:(s[m-1]+s[m])/2; }
+function groupBy(ps, fn){
+  const g={}; ps.forEach(p=>{ if(p.outlier==null||!p.mature) return; const k=fn(p); if(k==null) return; (g[k]=g[k]||[]).push(p.outlier); }); return g;
+}
+function renderPatterns(){
+  const days = +$("#f-days").value, cur = filtered(), now=Date.now();
+  const prev = filtered({ignoreDays:true}).filter(p => p._t < now-days*864e5 && p._t >= now-2*days*864e5);
+  const hitT = D.settings.hit_threshold;
+  const dims = [
+    ["Hook type","What the opening line does", p=>p.tags?.hook_type],
+    ["Topic","What the post is about", p=>p.tags?.topic],
+    ["Format","Reel, carousel, or image", p=>p.format],
+    ["Comment-keyword CTAs","\"Comment FLOWS and I'll send it\" posts vs. the rest", p=>p.comment_cta?"yes":"no"],
+  ];
+  const tagged = cur.some(p=>p.tags);
+  const panels = dims.map(([title,hint,fn]) => {
+    const g = groupBy(cur, fn), gp = groupBy(prev, fn);
+    let rows = Object.entries(g).filter(([,v])=>v.length>=3).map(([k,v]) => ({k, n:v.length, med:median(v), hit:v.filter(x=>x>=hitT).length/v.length, prev:gp[k]&&gp[k].length>=3?median(gp[k]):null}));
+    if(!rows.length) return `<div class="panel"><h3>${title}</h3><p class="hint">${!tagged&&(title==="Hook type"||title==="Topic")?"Turn on the AI layer to tag hooks and topics.":"Not enough posts in this period yet (need 3+ per group)."}</p></div>`;
+    rows.sort((a,b)=>b.med-a.med);
+    const max = Math.max(2, ...rows.map(r=>r.med));
+    return `<div class="panel"><h3>${title}</h3><p class="hint">${hint}. Median outlier score; line marks 1× (normal).</p>
+      ${rows.map(r=>{
+        const d = r.prev==null?null:r.med-r.prev;
+        const delta = d==null?`<span title="No data in the prior period">new</span>`:`<span class="${d>=0.15?"up":d<=-0.15?"down":""}" title="vs. prior ${days} days">${Math.abs(d)<0.05?"±0.0":(d>0?"+":"")+d.toFixed(1)}</span>`;
+        const col = r.med>=3?"var(--hot)":r.med>=2?"var(--warm)":r.med>=1?"var(--ink)":"var(--flat)";
+        return `<div class="bar-row"><span>${esc(lab(r.k))}</span>
+          <div class="bar-track"><div class="bar-fill" style="width:${(r.med/max*100).toFixed(1)}%;background:${col}"></div><div class="bar-one" style="left:${(1/max*100).toFixed(1)}%"></div></div>
+          <span class="bar-val">${r.med.toFixed(1)}×</span>
+          <span class="bar-meta">${delta} · n=${r.n}</span></div>`;}).join("")}
+    </div>`;
+  });
+  $("#tab-patterns").innerHTML = `<p class="result-note">Change vs. the ${days} days before. Groups need at least 3 posts. Hit = ${hitT}×+.</p><div class="pattern-grid">${panels.join("")}</div>`;
+}
+
+/* ---------------- creators */
+let cSort = {key:"followers", dir:-1};
+function renderCreators(){
+  const g=$("#f-group").value;
+  const rows = D.creators.filter(c=>!g||c.group===g);
+  const cols = [
+    ["handle","Creator"],["followers","Followers"],["follower_growth_30d","30-day growth"],["posts_30d","Posts (30d)"],
+    ["reels_share_30d","Reels share"],["median_reel_views","Median Reel views"],["hit_rate_30d","Hit rate"],["best","Best recent post"]
+  ];
+  const val = (c,k) => k==="best" ? (c.best_post?.outlier ?? -1) : k==="handle" ? c.handle : (c[k] ?? -Infinity);
+  rows.sort((a,b)=>{ const x=val(a,cSort.key), y=val(b,cSort.key); return (x>y?1:x<y?-1:0)*cSort.dir; });
+  if(!rows.length){ $("#tab-creators").innerHTML=`<div class="empty">No creators yet. Add handles in config/creators.yaml.</div>`; return; }
+  $("#tab-creators").innerHTML = `<div class="table-wrap"><table>
+    <thead><tr>${cols.map(([k,t])=>`<th data-k="${k}" ${cSort.key===k?`aria-sort="${cSort.dir<0?"descending":"ascending"}"`:""} tabindex="0">${t}</th>`).join("")}</tr></thead>
+    <tbody>${rows.map(c=>`<tr>
+      <td><div class="who">@${esc(c.handle)}</div><div class="grp">${esc(c.name)} · ${c.group==="adjacent"?"adjacent":"core"}</div></td>
+      <td>${fmtN(c.followers)}</td>
+      <td class="${c.follower_growth_30d>0?"up":c.follower_growth_30d<0?"down":""}">${c.follower_growth_30d==null?"—":(c.follower_growth_30d>0?"+":"")+fmtN(c.follower_growth_30d)}</td>
+      <td>${c.posts_30d}</td>
+      <td>${c.reels_share_30d==null?"—":Math.round(c.reels_share_30d*100)+"%"}</td>
+      <td>${fmtN(c.median_reel_views)}</td>
+      <td>${c.hit_rate_30d==null?"—":Math.round(c.hit_rate_30d*100)+"%"}</td>
+      <td>${c.best_post?`<a href="${esc(c.best_post.permalink)}" target="_blank" rel="noopener">${c.best_post.outlier.toFixed(1)}×</a>`:"—"}</td>
+    </tr>`).join("")}</tbody></table></div>
+    <p class="result-note" style="margin-top:10px">Hit rate = share of the last 30 days' posts at ${D.settings.hit_threshold}× or more of that creator's normal. Follower growth starts counting from your first run.</p>`;
+  document.querySelectorAll("#tab-creators th").forEach(th => {
+    const go = () => { const k=th.dataset.k; cSort = {key:k, dir: cSort.key===k ? -cSort.dir : (k==="handle"?1:-1)}; renderCreators(); };
+    th.addEventListener("click", go); th.addEventListener("keydown", e => { if(e.key==="Enter"||e.key===" "){e.preventDefault();go();} });
+  });
+}
+
+/* ---------------- discover */
+function renderDiscover(){
+  const d = D.discovery;
+  if(!d || !d.posts?.length){ $("#tab-discover").innerHTML = `<div class="empty">No hashtag results yet. Discovery runs with the daily update when <code>discovery.enabled</code> is on.</div>`; return; }
+  $("#tab-discover").innerHTML = `<p class="result-note">Top posts on your tracked hashtags, updated ${ago(d.updated_at)}. Instagram doesn't reveal who posted these through the API — open a post to see the creator, and add them to creators.yaml if they're worth tracking.</p>
+    <div class="inbox">${d.posts.map(p=>`<article class="row" style="grid-template-columns:minmax(0,1fr) auto">
+      <div>
+        <div class="meta"><span>${p.hashtags.map(h=>"#"+esc(h)).join(" ")}</span><span>${lab(p.format)}</span><span>${ago(tsDate(p.timestamp))}</span></div>
+        <div class="hook">${esc((p.caption||"(no caption)").split("\n")[0].slice(0,160))}</div>
+        <details class="cap"><summary>Caption</summary><p>${esc(p.caption)}</p></details>
+      </div>
+      <div><dl class="nums"><dt>Likes</dt><dd>${p.likes==null?"hidden":fmtN(p.likes)}</dd><dt>Comments</dt><dd>${fmtN(p.comments)}</dd></dl>
+      <div class="nums" style="display:block;margin-top:8px"><a class="open" href="${esc(p.permalink)}" target="_blank" rel="noopener">Open on Instagram</a></div></div>
+    </article>`).join("")}</div>`;
+}
+
+/* ---------------- brief, status, issues */
+function renderBrief(){
+  const s = D.summary, el = $("#brief");
+  if(!s){ el.innerHTML = `<h2>This week's read</h2><p class="brief-empty">${D.status.ai_enabled?"The first weekly brief appears once there are enough scored posts (usually after the second or third run).":"Weekly AI brief is off. Add an ANTHROPIC_API_KEY secret and set ai.enabled: true to get trend notes and post ideas here."}</p>`; return; }
+  const li = (arr, cls="") => (arr||[]).map(x=>`<li class="${cls}"><b>${esc(x.title)}</b><span>${esc(x.detail||"")}</span></li>`).join("");
+  el.innerHTML = `<h2>This week's read · ${ago(s.generated_at)}</h2>
+    <p class="headline">${esc(s.headline)}</p>
+    <div class="brief-cols">
+      <div><h3>What's working</h3><ul>${li(s.trends)}${s.cooling?.length?li(s.cooling,"cool"):""}</ul></div>
+      <div><h3>Ideas for you</h3><ul>${(s.ideas||[]).map(i=>`<li><b>${esc(i.title)}</b><span>${esc(i.angle)}${i.why?" — "+esc(i.why):""}</span></li>`).join("")}</ul></div>
+    </div>`;
+}
+
+function renderStatus(){
+  const st = D.status||{};
+  let t = `Updated ${ago(D.generated_at)} · ${st.creators_tracked||0} creators`;
+  if(st.demo) t += `<span class="demo-flag">Demo data</span>`;
+  const tk = st.token;
+  if(tk && tk.valid===false) t += `<br><span class="warn">Instagram token invalid — see README “Refresh your token”</span>`;
+  else if(tk && tk.days_left!=null && tk.days_left<=10) t += `<br><span class="warn">Instagram token expires in ${tk.days_left} days</span>`;
+  $("#status").innerHTML = t;
+  $("#foot").textContent = `Outlier score = a post's views (Reels) or likes + 2×comments (other posts) divided by the creator's median for that post type over their last 30 settled posts. Shares and saves aren't available for other accounts.`;
+}
+
+function renderIssues(){
+  const e = D.status?.errors||[];
+  if(!e.length) return;
+  $("#issues").innerHTML = `<details class="issues"><summary>${e.length} issue${e.length>1?"s":""} on the last run</summary><ul>${e.map(x=>`<li><b>${esc(x.handle)}</b>: ${esc(x.error)}</li>`).join("")}</ul></details>`;
+}
+
+init();
+</script>
+</body>
+</html>

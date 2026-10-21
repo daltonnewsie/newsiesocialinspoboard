@@ -1,0 +1,41 @@
+# How many recent posts to pull per creator each run (max ~100).
+posts_per_creator: 50
+
+# Outlier score = a post's performance / the creator's median over this many
+# of their recent posts of the same type (Reels vs. carousels/images).
+baseline_window: 30
+min_baseline_posts: 5
+
+# Posts younger than this get a "still growing" badge and are left out of
+# baselines, because their numbers haven't settled yet.
+mature_after_hours: 48
+
+# A post counts as a "hit" at or above this outlier score.
+hit_threshold: 2.0
+
+# Drop posts older than this from storage.
+keep_days: 180
+
+ai:
+  # Set to false to turn off all Claude API usage (dashboard still works).
+  enabled: true
+  tag_model: claude-haiku-4-5-20251001
+  summary_model: claude-sonnet-5
+  summary_every_days: 7
+  # Helps the weekly brief turn trends into ideas that fit you.
+  your_context: >
+    I'm Dalton, founder of Newsie Creative, an email & SMS agency for 7–9 figure
+    ecommerce brands (Klaviyo). I post educational content about ecommerce email
+    marketing to attract brand owners as clients.
+
+discovery:
+  # Pulls top posts for these hashtags so you can spot creators you aren't
+  # tracking yet. Instagram allows 30 unique hashtags per rolling 7 days.
+  enabled: true
+  hashtags:
+    - emailmarketing
+    - klaviyo
+    - emailmarketingtips
+    - smsmarketing
+    - ecommercemarketing
+    - dtcmarketing

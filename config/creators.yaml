@@ -1,0 +1,31 @@
+# Instagram accounts to track — handle only, no @.
+# They must be Business or Creator accounts (almost every creator is).
+# Each run checks every handle and lists any that fail on the dashboard.
+#
+# group: "core"      = ecommerce email / SMS / retention creators
+#        "adjacent"  = broader business / DTC growth creators whose formats
+#                      tend to carry over into the email niche
+# name is optional — the dashboard uses the account's own profile name if blank.
+
+creators:
+  # --- core ---
+  - { handle: "wellcopymax",       group: core }
+  - { handle: "chasehunterdimond", group: core }
+  - { handle: "emailmarketingguy_", group: core }
+  - { handle: "inboxphil",         group: core }
+  - { handle: "lucamailz",         group: core }
+  - { handle: "elitecopynoah",     group: core }
+  - { handle: "walshy.mails",      group: core }
+  - { handle: "email_jeremy",      group: core }
+  - { handle: "aidanwattersbiz",   group: core }
+  - { handle: "emailmarketking",   group: core }
+  - { handle: "lessismooreemail",  group: core }
+  - { handle: "matiqsends",        group: core }
+  - { handle: "tristanjonesemail", group: core }
+  # --- adjacent ---
+  - { handle: "hormozi",           group: adjacent }
+  - { handle: "briancochran",      group: adjacent }
+
+  # Other names from the original starter list, if you want to add them later:
+  # Rich Evans, Adam Kitchen (Magnet Monster), Andriy Boychuk (Flowium),
+  # Sarah Brereton, Nik Sharma, Ezra Firestone
