@@ -24,7 +24,7 @@ creators:
   - { handle: "tristanjonesemail", group: core }
   # --- adjacent ---
   - { handle: "hormozi",           group: adjacent }
-  - { handle: "briancochran",      group: adjacent }
+  - { handle: "briarcochran",      group: adjacent }
 
   # Other names from the original starter list, if you want to add them later:
   # Rich Evans, Adam Kitchen (Magnet Monster), Andriy Boychuk (Flowium),
