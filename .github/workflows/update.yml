@@ -1,0 +1,47 @@
+name: Update outlier board
+
+on:
+  schedule:
+    - cron: "0 11 * * *"   # daily at 11:00 UTC (6am Central)
+  workflow_dispatch:        # "Run workflow" button for manual runs
+    inputs:
+      force_brief:
+        description: "Write a new weekly brief now"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-board
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Fetch, score, and build dashboard data
+        env:
+          IG_USER_ID: ${{ secrets.IG_USER_ID }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: python -m tracker.main ${{ inputs.force_brief && '--force-brief' || '' }}
+
+      - name: Commit updated data (triggers the Cloudflare Pages deploy)
+        run: |
+          git config user.name  "outlier-bot"
+          git config user.email "outlier-bot@users.noreply.github.com"
+          git add data site/data.json
+          git diff --staged --quiet || git commit -m "Update data $(date -u +%Y-%m-%d)"
+          git push
