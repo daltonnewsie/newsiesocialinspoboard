@@ -22,9 +22,16 @@ creators:
   - { handle: "lessismooreemail",  group: core }
   - { handle: "matiqsends",        group: core }
   - { handle: "tristanjonesemail", group: core }
+  - { handle: "email.gain", group: core }
+  - { handle: "inboxphil", group: core }
+  - { handle: "jaydeemail", group: core }
+  - { handle: "milan.raviji", group: core }
+  - { handle: "skybailey__", group: core }
   # --- adjacent ---
   - { handle: "hormozi",           group: adjacent }
   - { handle: "briarcochran",      group: adjacent }
+  - { handle: "ryansterling",      group: adjacent }
+  - { handle: "personalbrandtips",      group: adjacent }
 
   # Other names from the original starter list, if you want to add them later:
   # Rich Evans, Adam Kitchen (Magnet Monster), Andriy Boychuk (Flowium),
